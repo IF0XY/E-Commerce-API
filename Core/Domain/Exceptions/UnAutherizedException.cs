@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Contracts
+namespace Domain.Exceptions
 {
-    public interface IDataSeeding
+    public class UnAutherizedException(string message = "Invalid Email or Password") : Exception(message)
     {
-        Task DataSeedAsync();
-        Task IdentityDataSeedAsync();
     }
 }

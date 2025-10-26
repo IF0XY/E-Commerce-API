@@ -41,6 +41,8 @@ namespace E_Commerce.Web.CustomeMiddleWares
             httpcontext.Response.StatusCode = ex switch
             {
                 NotFoundException => StatusCodes.Status404NotFound,
+                UnAutherizedException => StatusCodes.Status401Unauthorized,
+                BadRequestException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError,
             };
 
@@ -51,7 +53,12 @@ namespace E_Commerce.Web.CustomeMiddleWares
             var response = new ErrorToReturn()
             {
                 StatusCode = httpcontext.Response.StatusCode,
-                ErrorMassage = ex.Message
+                ErrorMassage = ex.Message,
+                Errors = ex switch
+                {
+                    BadRequestException badRequestException => badRequestException.Errors,
+                    _ => []
+                }
             };
 
             // Transfer Object to Json

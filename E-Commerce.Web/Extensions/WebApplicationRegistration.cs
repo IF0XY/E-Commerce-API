@@ -15,6 +15,7 @@ namespace E_Commerce.Web.Extensions
             #endregion
 
             await seed.DataSeedAsync();
+            await seed.IdentityDataSeedAsync();
             #endregion
         }
 

@@ -34,6 +34,7 @@ namespace E_Commerce.Web
             builder.Services.AddApplicationServices();
             // Validation Api Response 
             builder.Services.AddWebApplicationServices();
+            builder.Services.AddJWTServices(builder.Configuration);
             #endregion
 
             var app = builder.Build();
@@ -61,7 +62,9 @@ namespace E_Commerce.Web
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
-            //app.UseAuthorization();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
             #endregion

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Abstraction;
 using Shared;
 using Shared.DataTransferObjects.ProdcutModule;
@@ -15,13 +16,15 @@ namespace Presentation.Controllers
     public class ProductsController(IServiceManager _serviceManager) : ControllerBase
     {
         // Get All Products
+        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         // Get: baseUrl/api/Products
         // NameAsc
         // NameDesc
         // PriceAsc
         // PriceDesc
-        public async Task<ActionResult<IEnumerable<PaginatedResult<ProductDto>>>> GetAllProducts([FromQuery]ProductQueryParams queryParams)
+        public async Task<ActionResult<IEnumerable<PaginatedResult<ProductDto>>>> GetAllProducts([FromQuery] ProductQueryParams queryParams)
         {
             var products = await _serviceManager.ProductService.GetAllProductsAsync(queryParams);
             return Ok(products);
