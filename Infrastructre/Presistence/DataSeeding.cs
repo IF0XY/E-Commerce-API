@@ -1,5 +1,6 @@
 ﻿using Domain.Contracts;
 using Domain.Models.IdentityModule;
+using Domain.Models.OrderModule;
 using Domain.Models.ProductModule;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +50,15 @@ namespace Presistence
                     if (products is not null && products.Any())
                     {
                         await _dbContext.Products.AddRangeAsync(products);
+                    }
+                }
+                if (!_dbContext.Set<DeliveryMethod>().Any())
+                {
+                    var DeliveryMethodData = File.OpenRead(@"..\Infrastructre\Presistence\Data\DataSeeding\delivery.json");
+                    var DeliveryMethods = await JsonSerializer.DeserializeAsync<List<DeliveryMethod>>(DeliveryMethodData);
+                    if (DeliveryMethods is not null && DeliveryMethods.Any())
+                    {
+                        await _dbContext.Set<DeliveryMethod>().AddRangeAsync(DeliveryMethods);
                     }
                 }
                 await _dbContext.SaveChangesAsync();
