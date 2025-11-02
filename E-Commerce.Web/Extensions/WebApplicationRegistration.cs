@@ -1,5 +1,7 @@
 ﻿using Domain.Contracts;
 using E_Commerce.Web.CustomeMiddleWares;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Text.Json;
 
 namespace E_Commerce.Web.Extensions
 {
@@ -28,7 +30,27 @@ namespace E_Commerce.Web.Extensions
         public static IApplicationBuilder UseSwaggerMiddleWares(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(options =>
+            {
+                options.ConfigObject = new ConfigObject()
+                {
+                    DisplayRequestDuration = true,
+
+                };
+
+                options.DocumentTitle = "RestFull Api Project";
+
+                options.JsonSerializerOptions = new JsonSerializerOptions()
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+
+                options.DocExpansion(DocExpansion.None);
+
+                options.EnableFilter();
+
+                options.EnablePersistAuthorization();
+            });
             return app;
         }
     }

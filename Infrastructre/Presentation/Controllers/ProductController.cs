@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Presentation.Attributes;
 using Service.Abstraction;
 using Shared;
 using Shared.DataTransferObjects.ProdcutModule;
+using Shared.ErrorModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +17,19 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")] // baseUrl/api/Products
+    //public class ProductsController([FromKeyedServices("Lazy")]IServiceManager _serviceManager) : ControllerBase
     public class ProductsController(IServiceManager _serviceManager) : ControllerBase
     {
         // Get All Products
-        [Authorize]
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         // Get: baseUrl/api/Products
         // NameAsc
         // NameDesc
         // PriceAsc
         // PriceDesc
+
+        //[CachAttribute]
+        [Cache(60)] // no need to write Attribute 
         public async Task<ActionResult<IEnumerable<PaginatedResult<ProductDto>>>> GetAllProducts([FromQuery] ProductQueryParams queryParams)
         {
             var products = await _serviceManager.ProductService.GetAllProductsAsync(queryParams);
@@ -32,6 +38,8 @@ namespace Presentation.Controllers
         // Get Product by Id
         //[HttpGet("id")] // static segment => baseUrl/api/Products/id?id=10
 
+        [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorToReturn), StatusCodes.Status404NotFound)]
         [HttpGet("{id:int}")] // variable segment => baseUrl/api/Products/10
 
         // Get: baseUrl/api/Products?id=10 // Query Param

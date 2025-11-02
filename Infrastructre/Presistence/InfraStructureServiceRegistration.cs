@@ -41,6 +41,7 @@ namespace Presistence
                     .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<StoreIdentityDbContext>();
 
+            Services.AddScoped<ICacheRepoitory, CacheRepository>();
 
             return Services;
         }
