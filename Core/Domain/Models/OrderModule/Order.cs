@@ -12,13 +12,14 @@ namespace Domain.Models.OrderModule
         {
             
         }
-        public Order(string userEmail, OrderAddress address, DeliveryMethod deliveryMethod, ICollection<OrderItem> items, decimal subTotal)
+        public Order(string userEmail, OrderAddress address, DeliveryMethod deliveryMethod, ICollection<OrderItem> items, decimal subTotal, string paymentIntentId)
         {
             UserEmail = userEmail;
             Address = address;
             DeliveryMethod = deliveryMethod;
             Items = items;
             SubTotal = subTotal;
+            PaymentIntentId = paymentIntentId;
         }
 
         public string UserEmail { get; set; } = default!;
@@ -28,6 +29,7 @@ namespace Domain.Models.OrderModule
         public int DeliveryMethodId { get; set; } // FK
         public OrderStatus OrderStatus { get; set; }
         public ICollection<OrderItem> Items { get; set; } = []; // intialize with Empty Collection
+        public string PaymentIntentId { get; set; } = default!;
         public decimal SubTotal { get; set; }
         public decimal GetTotal() // Get(Name) he Will Get the Total by convention (Get + (Name of Prop))
         {

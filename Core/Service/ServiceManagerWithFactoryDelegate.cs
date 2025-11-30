@@ -19,5 +19,7 @@ namespace Service
         public IAuthenticationService AuthenticationService => AuthenticationFactory.Invoke();
 
         public IOrderService OrderService => OrderFactory.Invoke();
+
+        public IPaymentService PaymentService => throw new NotImplementedException();
     }
 }
