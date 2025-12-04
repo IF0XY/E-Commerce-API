@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4 fw-bold">Dashboard</h1>
+        <p class="lead mt-3">Welcome to your admin dashboard. Use the menu to manage products, brands, types, and more.</p>
+    </div>
+
+    <div class="row mt-5">
+
+        <!-- Cards -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Products</h5>
+                    <p class="card-text">View and manage all products.</p>
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Brands</h5>
+                    <p class="card-text">Manage product brands.</p>
+                    <a asp-controller="Brand" asp-action="Index" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Types</h5>
+                    <p class="card-text">Manage product types.</p>
+                    <a asp-controller="Type" asp-action="Index" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

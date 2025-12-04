@@ -37,9 +37,15 @@ namespace Presistence
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
             });
 
+            //Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            //{
+            //}).AddEntityFrameworkStores<StoreIdentityDbContext>()
+            //  .AddDefaultTokenProviders();
+
             Services.AddIdentityCore<ApplicationUser>()
                     .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<StoreIdentityDbContext>();
+                    .AddEntityFrameworkStores<StoreIdentityDbContext>()
+                    .AddDefaultTokenProviders();
 
             Services.AddScoped<ICacheRepoitory, CacheRepository>();
 

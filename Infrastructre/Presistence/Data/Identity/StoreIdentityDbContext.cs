@@ -20,10 +20,10 @@ namespace Presistence.Data.Identity
             builder.Entity<IdentityRole>().ToTable("Roles");
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
 
-            builder.Ignore<IdentityUserClaim<string>>();
-            builder.Ignore<IdentityUserToken<string>>();
-            builder.Ignore<IdentityUserLogin<string>>();
-            builder.Ignore<IdentityRoleClaim<string>>();
+            //builder.Ignore<IdentityUserClaim<string>>();
+            //builder.Ignore<IdentityUserToken<string>>();
+            //builder.Ignore<IdentityUserLogin<string>>();
+            //builder.Ignore<IdentityRoleClaim<string>>();
         }
     }
 }

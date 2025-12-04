@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Service.Specifications
 {
-    class ProductWithBrandAndTypeSpecification : BaseSpecification<Product, int>
+    public class ProductWithBrandAndTypeSpecification : BaseSpecification<Product, int>
     {
         // Get All
         // 1. brandId = null, typeId = null   => true && true
         // 2. brandId = null, typeId = value  => true                 && P.typeId == typeID
         // 3. brandId = value, typeId = null  => P.brandID == brandID && true
         // 3. brandId = value, typeId = value => P.brandID == brandID && P.typeId == typeID
-        public ProductWithBrandAndTypeSpecification(ProductQueryParams queryParams)
+        public ProductWithBrandAndTypeSpecification(ProductQueryParams queryParams, bool forDashBoard = false)
             : base(P => (!queryParams.brandId.HasValue || P.BrandId == queryParams.brandId)
                && (!queryParams.typeId.HasValue || P.TypeId == queryParams.typeId)
                && (string.IsNullOrWhiteSpace(queryParams.SearchValue) || P.Name.ToLower().Contains(queryParams.SearchValue.ToLower())))
@@ -40,8 +40,8 @@ namespace Service.Specifications
                 default:
                     break;
             }
-
-            ApplyPagination(queryParams.PageSize, queryParams.PageIndex);
+            if (!forDashBoard)
+                ApplyPagination(queryParams.PageSize, queryParams.PageIndex);
         }
         // Get By Id
         public ProductWithBrandAndTypeSpecification(int id) : base(P => P.Id == id)

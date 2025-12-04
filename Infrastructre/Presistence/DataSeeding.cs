@@ -82,9 +82,9 @@ namespace Presistence
                 {
                     var user01 = new ApplicationUser()
                     {
-                        Email = "Mohamed@Gmail.com",
-                        DisplayName = "Mohamed Aly",
-                        UserName = "MohamedAly",
+                        Email = "Ibrahimtaal6@Gmail.com",
+                        DisplayName = "Ibrahim Taalab",
+                        UserName = "IbrahimTaalab",
                         PhoneNumber = "01234567890",
                     };
                     var user02 = new ApplicationUser()
