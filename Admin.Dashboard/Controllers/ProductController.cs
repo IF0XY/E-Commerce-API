@@ -123,6 +123,18 @@ namespace Admin.Dashboard.Controllers
             product.TypeId = model.TypeId;
             product.BrandId = model.BrandId;
 
+            if (model.Image != null)
+            {
+                if (!string.IsNullOrEmpty(product.PictureUrl) && product.PictureUrl != "placeholder.png")
+                {
+                    var deletePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", product.PictureUrl);
+                    PictureSettings.Delete(deletePath);
+                }
+                string newPictureUrl = PictureSettings.Upload(model.Image, "products") ?? product.PictureUrl;
+                product.PictureUrl = newPictureUrl;
+            }
+
+
             repo.Update(product);
             var result = await _unitOfWork.SaveChangesAsync();
             if (result > 0)

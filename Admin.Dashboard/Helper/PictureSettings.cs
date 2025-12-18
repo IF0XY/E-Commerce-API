@@ -26,8 +26,10 @@
 
 
             // 4. Get File Name (Make File Name Unique) [with Guid
-            var fileFileName = file.FileName.Length > 10 ? file.FileName.Substring(0, 10) : file.FileName; // to not get an exception bc the longNames
+            var fileFileName = file.FileName.Length > 10 ? file.FileName.Substring(0, 10) : file.FileName;
             var fileName = $"{Guid.NewGuid()}_{fileFileName}{extension}";
+            //var fileFileName = file.FileName.Length > 10 ? file.FileName.Substring(0, 10) : file.FileName; // to not get an exception bc the longNames
+            //var fileName = $"{Guid.NewGuid()}_{fileFileName}{extension}";
 
             // 5. Get File Path
             var filePath = Path.Combine(folderPath, fileName);
@@ -39,7 +41,7 @@
             file.CopyTo(fs);
 
             // 8. Return File Name
-            return fileName;
+            return $"Files/{folderName}/{fileName}";
         }
 
         public static bool Delete(string filePath)
